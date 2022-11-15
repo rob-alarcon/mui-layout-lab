@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "pretty": true,
+        "sourceMap": true,
+        "lib": ["ES2021"],
+        "module": "commonjs",
+        "target": "ES2021",
+        "outDir": "./dist",
+        "baseUrl": "./src"
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
