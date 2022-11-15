@@ -2,9 +2,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from 'mongoose';
 import environment from "../environment";
-import { TestRoutes } from "../routes/test_routes";
 import { CommonRoutes } from "../routes/CommonRoutes";
-import { UserRoutes } from "../routes/UserRoutes";
 import { NotesRoutes } from "../routes/NotesRoutes";
 
 class App {
@@ -14,9 +12,7 @@ class App {
    //public mongoUrl:string = 'mongodb://localhost/' + environment.getDBName();
    public mongoUrl:string = 'ups';
 
-   private testRoutes:TestRoutes = new TestRoutes();
    private commonRoutes:CommonRoutes = new CommonRoutes();
-   private userRoutes:UserRoutes = new UserRoutes();
    private notesRoutes:NotesRoutes = new NotesRoutes();
 
    constructor() {
@@ -24,8 +20,6 @@ class App {
       this.config();
       this.mongoSetup();
       this.notesRoutes.route(this.app);
-      this.userRoutes.route(this.app);
-      this.testRoutes.route(this.app);
       this.commonRoutes.route(this.app);
    }
 
