@@ -12,7 +12,7 @@ class App {
 
    // mongo setup
    //public mongoUrl:string = 'mongodb://localhost/' + environment.getDBName();
-   public mongoUrl:string = 'mongodb+srv://kakaroto:ODGogExVefftofrx@notesdemo.3zqtokb.mongodb.net/?retryWrites=true&w=majority'
+   public mongoUrl:string = 'ups';
 
    private testRoutes:TestRoutes = new TestRoutes();
    private commonRoutes:CommonRoutes = new CommonRoutes();
