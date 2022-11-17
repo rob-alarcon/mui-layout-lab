@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from 'mongoose';
+import * as cors from 'cors'
 import environment from "../environment";
 import { CommonRoutes } from "../routes/CommonRoutes";
 import { NotesRoutes } from "../routes/NotesRoutes";
@@ -17,6 +18,20 @@ class App {
 
    constructor() {
       this.app = express();
+
+      // configure cors
+      const allowlist = ['http://localhost:5173/', 'http://localhost:5174/']
+      const corsOptionsDelegate = function (req, callback) {
+         var corsOptions;
+         if (allowlist.indexOf(req.header('Origin')) !== -1) {
+           corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+         } else {
+           corsOptions = { origin: false } // disable CORS for this request
+         }
+         callback(null, corsOptions) // callback expects two parameters: error and options
+      }
+
+      this.app.use(cors());
       this.config();
       this.mongoSetup();
       this.notesRoutes.route(this.app);

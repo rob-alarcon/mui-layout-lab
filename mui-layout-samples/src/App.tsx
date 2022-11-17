@@ -1,28 +1,33 @@
-import { useEffect, useState } from 'react'   
+import { useEffect, useMemo, useState } from 'react'   
 import { Container } from '@mui/system';
 import NoteCard from './components/NoteCard';
 import Masonry from 'react-masonry-css';
-import { } from './App.css'
-
-export default interface INote {
-  id: number,
-  title: string,
-  details: string,
-  category: string
-};
+import { } from './App.css';
+import INote from './model/INote';
+import useNotes from './hooks/useNotes';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function App() {
   const [notes, setNotes] = useState<INote[]>([]);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/notes")
-      .then(res => res.json())
-      .then(data => setNotes(data));
-  }, []);
+  const { data, isLoading } = useNotes();
 
-  const handleDelete = async function(id:number) {
-    console.log(`ID ${id}`);
-    await fetch("http://localhost:8000/notes/" + id, {
+  useEffect(() => {
+    setNotes(data);
+  }, [data]);
+
+  if (isLoading || !notes.length) return (<CircularProgress />);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/api/notes")
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setNotes(data.DATA)
+  //     });
+  // }, []);
+
+  const handleDelete = async function(id:string | undefined) {
+    await fetch("http://localhost:3000/api/notes/" + id, {
       method: "DELETE"
     })
     .then(res => {

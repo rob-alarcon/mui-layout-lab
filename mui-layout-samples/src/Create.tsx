@@ -1,7 +1,7 @@
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import { Container, styled } from "@mui/system";
-import { useState } from "react";
+import { FormEvent, FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Create() {
@@ -11,7 +11,7 @@ export default function Create() {
     const [errorTitle, setErrorTitle] = useState(false);
     const [errorDetails, setErrorDetails] = useState(false);
     const navigateTo = useNavigate();
-    const handleOnSubmit = (e:Event) => {
+    const handleOnSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // clean previous state
         setErrorTitle(false);
@@ -29,13 +29,11 @@ export default function Create() {
             return;
         }
 
-        const createdDate = new Date();
-
         // create new note
-        fetch("http://localhost:8000/notes", {
+        fetch("http://localhost:3000/api/notes", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
-            body: JSON.stringify({title, details, category, createdDate})
+            body: JSON.stringify({title, details, category})
         }).then(() => {
             navigateTo('/');
         })

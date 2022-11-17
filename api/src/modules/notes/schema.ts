@@ -16,4 +16,19 @@ const schema = new Schema({
     }
 });
 
+// Duplicate the ID field.
+schema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+schema.set('toJSON', {
+    virtuals: true
+});
+
+// schema.set("toJSON", {   
+//     virtuals: true,   
+//     versionKey: false,   
+//     transform: function(doc, ret) {     delete ret._id;   } });
+
 export default mongoose.model('notes', schema);

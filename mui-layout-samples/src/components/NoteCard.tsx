@@ -1,5 +1,5 @@
 import React from "react";
-import INote from "../App";
+import INote from "../model/INote";
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -8,7 +8,7 @@ import { DeleteOutline } from '@mui/icons-material'
 
 interface INoteProp {
     note: INote,
-    onClick: (id:number) => void
+    onClick: (id:string | undefined) => void
 };
 
 export default function NoteCard(noteProp:INoteProp) {
